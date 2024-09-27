@@ -77,15 +77,15 @@ export default function Negocio({ BASE_URL }) {
         <Layout>
 
             {error?.response?.data?.msg ?
-                <p className='text-center text-xl'>{noAcces}</p>
+                <p className='text-xl text-center'>{noAcces}</p>
                 :
                 <>
 
-                    <div className="w-full grid md:grid-cols-3 text-white gap-5">
+                    <div className="grid w-full gap-5 text-white md:grid-cols-3">
 
                         <div className={`bg-green-600 rounded-md h-fit`}>
                             <div className={`${styles.icon_money} p-5`}>
-                                <h2 className="font-bold mb-5 text-2xl">$ {data?.totalVentasDia}</h2>
+                                <h2 className="mb-5 text-2xl font-bold">S/. {data?.totalVentasDia}</h2>
                                 <p>Ganancias del día</p>
                             </div>
 
@@ -94,7 +94,7 @@ export default function Negocio({ BASE_URL }) {
 
                         <div className={`bg-cyan-600 rounded-md h-fit`}>
                             <div className={`${styles.icon_money} p-5`}>
-                                <h2 className="font-bold mb-5 text-2xl">$ {data?.totalVentasMes}</h2>
+                                <h2 className="mb-5 text-2xl font-bold">S./  {data?.totalVentasMes}</h2>
                                 <p>Ganancias del mes</p>
                             </div>
 
@@ -103,7 +103,7 @@ export default function Negocio({ BASE_URL }) {
 
                         <div className={`bg-orange-600 rounded-md h-fit`}>
                             <div className={`${styles.icon_money} p-5`}>
-                                <h2 className="font-bold mb-5 text-2xl">$ {data?.totalVentasMesPasado}</h2>
+                                <h2 className="mb-5 text-2xl font-bold">S/. {data?.totalVentasMesPasado}</h2>
                                 <p>Ganancias mes pasado</p>
                             </div>
 
@@ -111,13 +111,13 @@ export default function Negocio({ BASE_URL }) {
                         </div>
                     </div>
 
-                    <h2 className="text-2xl mt-5">Mis Datos:</h2>
+                    <h2 className="mt-5 text-2xl">Mis Datos:</h2>
 
                     <form
                         onSubmit={handleCambiarUser}
                     >
 
-                        <div className="my-3 flex items-center gap-3">
+                        <div className="flex items-center gap-3 my-3">
                             <button
                                 type="button"
                                 className={`${editar ? 'hidden' : 'block'} bg-green-400 hover:bg-green-600 p-2 rounded-full`}
@@ -154,7 +154,7 @@ export default function Negocio({ BASE_URL }) {
                             </button>
                         </div>
 
-                        <div className="flex items-center mb-3 gap-3">
+                        <div className="flex items-center gap-3 mb-3">
                             <label
                                 htmlFor="nombre"
                                 className="block my-3"
@@ -173,7 +173,7 @@ export default function Negocio({ BASE_URL }) {
                             />
                         </div>
 
-                        <div className="flex items-center mb-3 gap-3">
+                        <div className="flex items-center gap-3 mb-3">
                             <label
                                 htmlFor="user"
                                 className="block my-3"
@@ -248,7 +248,7 @@ export default function Negocio({ BASE_URL }) {
 
                         <button
                             type="button"
-                            className="bg-red-600 text-white font-bold cursor-pointer px-3 py-2 rounded-md hover:bg-red-500 mt-3 ml-3"
+                            className="px-3 py-2 mt-3 ml-3 font-bold text-white bg-red-600 rounded-md cursor-pointer hover:bg-red-500"
                             onClick={() => {
                                 setFormPass(false)
                                 setPass('')

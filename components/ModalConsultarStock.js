@@ -2,7 +2,7 @@ import { useState } from "react"
 import useUsuario from "@/hooks/useUsuario";
 import axios from "axios"
 
-export const ModalConsultarStock = ({ BASE_URL, stock, setProductoState }) => {
+export const ModalConsultarStock = ({ BASE_URL, stock, setProductoState, setDescripcionProducto }) => {
 
     const [alerta, setAlerta] = useState(false);
 
@@ -26,6 +26,8 @@ export const ModalConsultarStock = ({ BASE_URL, stock, setProductoState }) => {
 
             changeModalStock()
             setProductoState(data)
+            setDescripcionProducto(data)
+             console.log("data: ", data); 
 
         } catch (error) { console.log(error) }
     }
@@ -34,19 +36,19 @@ export const ModalConsultarStock = ({ BASE_URL, stock, setProductoState }) => {
         <tr
             className="even:bg-[#F8F8F8] border-b last-of-type:border-none"
         >
-            <td className="text-start p-2 lg:px-7 lg:py-5">
+            <td className="p-2 text-start lg:px-7 lg:py-5">
                 {stock.codigo}
             </td>
-            <td className="text-start p-2 lg:px-7 lg:py-5">
+            <td className="p-2 text-start lg:px-7 lg:py-5">
                 {stock.nombre}
             </td>
-            <td className="text-start p-2 lg:px-7 lg:py-5">
+            <td className="p-2 text-start lg:px-7 lg:py-5">
                 {stock.cantidad}
             </td>
-            <td className="text-start p-2 lg:px-7 lg:py-5">
-                ${stock.precioUnitario.$numberDecimal}
+            <td className="p-2 text-start lg:px-7 lg:py-5">
+                S/. {stock.precioUnitario.$numberDecimal}
             </td>
-            <td className="text-start p-2 lg:px-7 lg:py-5 relative">
+            <td className="relative p-2 text-start lg:px-7 lg:py-5">
                 <button
                     type="button"
                     className="bg-[#51B1D3] hover:bg-[#238DB4] p-2 md:p-2 rounded-full"

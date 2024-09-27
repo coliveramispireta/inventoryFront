@@ -32,7 +32,7 @@ const customStyles = {
 Modal.setAppElement('#__next');
 
 export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) => {
-    const [descripcionProducto, setDescripcionProducto] = useState('')
+    const [descripcionProducto, setDescripcionProducto] = useState({})
     const [cantidadProducto, setCantidadProducto] = useState(0)
     const [descuento, setDescuento] = useState(0)
     const [total, setTotal] = useState(0)
@@ -41,7 +41,7 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
     const [alerta, setAlerta] = useState(false);
     const [idCuerpoFactura, setIdCuerpoFactura] = useState('')
     const [idStockTemp, setIdStockTemp] = useState('')
-    const [productoState, setProductoState] = useState({})
+    const [productoState, setProductoState] = useState({});
     const [cantidadProductoTemp, setCantidadProductoTemp] = useState(0)
 
     const {
@@ -65,13 +65,13 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
         if (facturaState?._id) {
             productos.map(p => {
                 if (p.id === id) {
-                    setDescripcionProducto(p.descripcionProducto)
                     setCantidadProducto(p.cantidadProducto)
                     setCantidadProductoTemp(p.cantidadProducto)
                     setIdCuerpoFactura(p.idCuerpo)
                     setIdStockTemp(p.producto)
                     setDescuento(p.cantidadProducto)
                     setProductoState(p.precioUnitario)
+                    setDescripcionProducto(p.descripcionProducto)
                     setTotal(p.totalProducto.$numberDecimal)
                     setAgrePro(true)
                     setEditarPro(false)
@@ -83,10 +83,10 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
 
         setIdCuerpoFactura('')
         setCantidadProductoTemp(0)
-        setDescripcionProducto('')
         setCantidadProducto(0)
         setDescuento(0)
         setProductoState({})
+        setDescripcionProducto({})
         setTotal(0)
         setAgrePro(false)
         setEditarPro(false)
@@ -100,10 +100,10 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
         if (!editar) {
             setIdCuerpoFactura('')
             setCantidadProductoTemp(0)
-            setDescripcionProducto('')
             setCantidadProducto(0)
             setDescuento(0)
             setProductoState({})
+            setDescripcionProducto({})
             setTotal(0)
             setAgrePro(false)
             setEditarPro(false)
@@ -148,7 +148,13 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
         try {
             const { data } = await axios.post(`${BASE_URL}/factura/crear-cuerpo-factura/${usuario.token}`, {
                 idStock,
-                descripcionProducto,
+                descripcionProducto: descripcionProducto.nombre,
+                cantidadProducto,
+                descuentoProducto: descuento
+            })
+            console.log("crear Fact: ", {
+                idStock,
+                descripcionProducto: descripcionProducto.nombre,
                 cantidadProducto,
                 descuentoProducto: descuento
             })
@@ -230,8 +236,8 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
     }
 
     return (
-        <div className="flex flex-col gap-3 md:flex-row md:justify-between md:items-start md:gap-12 mt-4">
-            <div className="w-full flex flex-col lg:flex-row md:gap-6">
+        <div className="flex flex-col gap-3 mt-4 md:flex-row md:justify-between md:items-start md:gap-12">
+            <div className="flex flex-col w-full lg:flex-row md:gap-6">
                 <div className="mb-3">
                     <label
                         className="block mb-3"
@@ -240,13 +246,13 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
                         Descripción:
                     </label>
                     <input
-                        onChange={e => setDescripcionProducto(e.target.value)}
-                        value={descripcionProducto}
+                        value={descripcionProducto?.nombre === undefined ? '' : descripcionProducto?.nombre}
                         id="descripcion-producto"
                         type="text"
                         placeholder="*"
-                        disabled={agrePro ? !editarPro : null}
-                        className={`${agrePro ? editarPro ? 'bg-white text-black' : 'bg-transparent text-gray-500 border-[#F1F1F1]' : 'bg-white'} px-2 py-1 outline-none rounded-sm w-full border-2 placeholder:text-red-400 ${descripcionProducto === '' ? 'border-red-400' : ''}`}
+                        readOnly
+                        disabled
+                        className={`${agrePro ? editarPro ? 'text-black' : 'bg-gray-200 text-gray-500' : ''} border-b border-gray-400 bg-transparent px-2 py-1 outline-none rounded-sm w-full cursor-not-allowed`}
                     />
                 </div>
 
@@ -255,7 +261,7 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
                         className="block mb-3"
                         htmlFor="cantidad"
                     >
-                        Cantidad:
+                        Cantidad (und):
                     </label>
                     <input
                         value={cantidadProducto}
@@ -272,7 +278,7 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
                         className="block mb-3"
                         htmlFor="decuento"
                     >
-                        Decuento:
+                        Descuento (%):
                     </label>
                     <input
                         value={descuento}
@@ -285,13 +291,13 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
                     />
                 </div>
 
-                <div className="flex gap-5 justify-between">
+                <div className="flex justify-between gap-5">
                     <div className="mb-3">
                         <label
                             className="block mb-3"
                             htmlFor="precio-unitario"
                         >
-                            Pre. Uni:
+                            Pre. Uni (S/.):
                         </label>
                         <input
                             readOnly
@@ -299,7 +305,7 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
                             value={precioUnitario?.$numberDecimal === undefined ? '' : precioUnitario?.$numberDecimal}
                             id="precio-unitario"
                             type="number"
-                            className={`${agrePro ? editarPro ? 'text-black' : 'bg-gray-200 text-gray-500' : ''} bg-transparent px-2 py-1 outline-none rounded-sm w-full cursor-not-allowed`}
+                            className={`${agrePro ? editarPro ? 'text-black' : 'bg-gray-200 text-gray-500' : ''} border-b border-gray-400 bg-transparent px-2 py-1 outline-none rounded-sm w-full cursor-not-allowed`}
                         />
                     </div>
                     <div className="mb-3">
@@ -307,7 +313,7 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
                             className="block mb-3"
                             htmlFor="total"
                         >
-                            Total:
+                            Total (S/.):
                         </label>
                         <input
                             readOnly
@@ -315,13 +321,13 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
                             value={total ? total : 0}
                             id="total"
                             type="number"
-                            className={`${agrePro ? editarPro ? ' text-black' : 'bg-gray-200 text-gray-500' : ''} bg-transparent px-2 py-1 outline-none rounded-sm w-full cursor-not-allowed`}
+                            className={`${agrePro ? editarPro ? ' text-black' : 'bg-gray-200 text-gray-500' : ''} border-b border-gray-400 bg-transparent px-2 py-1 outline-none rounded-sm w-full cursor-not-allowed`}
                         />
                     </div>
                 </div>
             </div>
 
-            <div className="flex gap-3 items-center md:mt-8 lg:mt-0 relative">
+            <div className="relative flex items-center gap-3 md:mt-8 lg:mt-0">
 
                 <span
                     className={`${alerta ? 'block' : 'hidden'} bg-red-500 rounded-md p-1 text-sm absolute text-center top-[-50px]`}
@@ -340,7 +346,7 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
                 {agrePro &&
                     <button
                         type="button"
-                        className="bg-red-400 hover:bg-red-600 px-2 rounded-full p-2"
+                        className="p-2 px-2 bg-red-400 rounded-full hover:bg-red-600"
                         onClick={() => eliminarFormStock(id, idCuerpoFactura, idStock, cantidadProducto)}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
@@ -387,13 +393,14 @@ export const AgregarProducto = ({ id, BASE_URL, stockFiltrado, setBusqueda }) =>
                         BASE_URL={BASE_URL}
                         stockFiltrado={stockFiltrado}
                         setProductoState={setProductoState}
+                        setDescripcionProducto={setDescripcionProducto}
                         setCantidadProductoTemp={setCantidadProductoTemp}
                         setBusqueda={setBusqueda}
                     />
                 </Modal>
             </div>
 
-            <hr className='border-gray-400 my-5' />
+            <hr className='my-5 border-gray-400' />
 
         </div>
     )

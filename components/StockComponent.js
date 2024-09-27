@@ -20,12 +20,12 @@ export const StockComponent = ({ stock, BASE_URL }) => {
 
     return (
         <tr className="even:bg-[#F8F8F8] border-b last-of-type:border-none">
-            <td className="text-start p-2 lg:px-7 lg:py-5">{codigo}</td>
-            <td className="text-start p-2 lg:px-7 lg:py-5">{nombre}</td>
-            <td className="text-start p-2 lg:px-7 lg:py-5">{cantidad}</td>
-            <td className="text-start p-2 lg:px-7 lg:py-5">${precioUnitario.$numberDecimal}</td>
-            <td className="text-start p-2 lg:px-7 lg:py-5">{estado ? 'Activo' : 'Inactivo'}</td>
-            <td className="text-start p-2 lg:px-7 lg:py-5">
+            <td className="p-2 text-start lg:px-7 lg:py-5">{codigo}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5">{nombre}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5">{cantidad}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5">S/. {precioUnitario.$numberDecimal}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5">{estado ? 'Activo' : 'Inactivo'}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5">
                 <button
                     className="ml-5 text-[#0C8AB7]"
                     onClick={abrirAcciones}

@@ -79,7 +79,7 @@ export const DatosCliente = ({ BASE_URL }) => {
                         className="block mb-3"
                         htmlFor="identificacion"
                     >
-                        Identificación:
+                        DNI/RUC:
                     </label>
                     <input
                         value={identificacion}
@@ -87,7 +87,7 @@ export const DatosCliente = ({ BASE_URL }) => {
                         id="identificacion"
                         type="text"
                         placeholder="*"
-                        className={`${identificacion === '' ? 'border-red-400 placeholder:text-red-400' : ''} ${identificacion.length !== 10 || isNaN(identificacion) ? 'border-red-400' : ''} border-2 px-2 py-1 outline-none rounded-sm w-full`}
+                        className={`${identificacion === '' ? 'border-red-400 placeholder:text-red-400' : ''} ${identificacion.length < 8 || isNaN(identificacion) ? 'border-red-400' : ''} border-2 px-2 py-1 outline-none rounded-sm w-full`}
                     />
                 </div>
             </div>
@@ -105,7 +105,7 @@ export const DatosCliente = ({ BASE_URL }) => {
                         onChange={e => setDireccion(e.target.value)}
                         id="direccion"
                         type="text"
-                        className="border-2 px-2 py-1 outline-none rounded-sm w-full"
+                        className="w-full px-2 py-1 border-2 rounded-sm outline-none"
                     />
                 </div>
                 <div className="mb-3">
@@ -121,7 +121,7 @@ export const DatosCliente = ({ BASE_URL }) => {
                         id="telefono"
                         type="text"
                         placeholder="No es obligatorio"
-                        className={`px-2 py-1 outline-none rounded-sm w-full ${telefono.length !== 10 || isNaN(telefono) ? 'border-red-400' : ''} border-2`}
+                        className={`px-2 py-1 outline-none rounded-sm w-full ${telefono.length !== 9 || isNaN(telefono) ? 'border-red-400' : ''} border-2`}
                     />
                 </div>
                 <div className="mb-3">
@@ -136,7 +136,7 @@ export const DatosCliente = ({ BASE_URL }) => {
                         onChange={e => setCorreo(e.target.value)}
                         id="correo"
                         type="email"
-                        className="border-2 px-2 py-1 outline-none rounded-sm w-full"
+                        className="w-full px-2 py-1 border-2 rounded-sm outline-none"
                     />
                 </div>
             </div>
@@ -152,7 +152,7 @@ export const DatosCliente = ({ BASE_URL }) => {
                 <textarea
                     value={descripcion}
                     onChange={e => setDescripcion(e.target.value)}
-                    className="border-2 px-2 py-1 outline-none rounded-sm w-full" id="descripcion"
+                    className="w-full px-2 py-1 border-2 rounded-sm outline-none" id="descripcion"
                     rows="7"
                 ></textarea>
             </div>

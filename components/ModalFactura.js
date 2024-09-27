@@ -154,7 +154,7 @@ export const ModalFactura = ({ BASE_URL }) => {
         const totalPagar = productos.reduce((total, p) => total + (Number(p?.totalProducto) || Number(p?.totalProducto?.$numberDecimal) || 0), 0);
 
         setTotalFactura(totalPagar);
-
+        console.log("totalPagar: ", totalPagar);
         // productos.length > 0 ? setBotonMas(false) : setBotonMas(true)
 
     }, [productos])
@@ -311,16 +311,16 @@ export const ModalFactura = ({ BASE_URL }) => {
 
     return (
         <>
-            <div className="py-10 px-5 border-b border-gray-300">
+            <div className="px-5 py-10 border-b border-gray-300">
                 <div className={`${editar ? 'hidden' : 'block'} text-center`}>
                     <button onClick={controlModal}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 bg-red-100 hover:bg-red-600 hover:text-white p-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 p-1 bg-red-100 rounded-full hover:bg-red-600 hover:text-white">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
 
-                <span className="block text-center text-2xl">{editar ? 'Editar Factura' : 'Factura'}</span>
+                <span className="block text-2xl text-center">{editar ? 'Editar Factura' : 'Factura'}</span>
             </div>
 
             <form
@@ -330,7 +330,7 @@ export const ModalFactura = ({ BASE_URL }) => {
 
                 {/* Eleguir Cabecera Factura */}
                 <h2 className="text-2xl">Cabecera:</h2>
-                <div className="mb-9 md:mb-3 flex flex-col md:flex-row md:gap-4 md:items-baseline">
+                <div className="flex flex-col mb-9 md:mb-3 md:flex-row md:gap-4 md:items-baseline">
                     <label
                         htmlFor="cabecera"
                         className="block mb-3"
@@ -380,7 +380,7 @@ export const ModalFactura = ({ BASE_URL }) => {
                 {botonMas &&
                     <button
                         type="button"
-                        className="bg-green-400 hover:bg-green-600 px-2 rounded-full mt-5 p-2"
+                        className="p-2 px-2 mt-5 bg-green-400 rounded-full hover:bg-green-600"
                         onClick={mostrarFormProducto}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
@@ -406,10 +406,10 @@ export const ModalFactura = ({ BASE_URL }) => {
                         className={`bg-[#3EA8CE] rounded-md px-3 py-2 text-white cursor-pointer hover:bg-[#238DB4]`}
                     />
 
-                    <p className="text-2xl">Subtotal: ${totalFactura}</p>
+                    <p className="text-2xl">Subtotal: S/. {totalFactura}</p>
                 </div>
 
-                <div className={`${productos.length < 2 ? 'hidden' : 'block'} flex flex-col gap-3 sm:flex-row sm:gap-0 justify-between items-center mt-5`}>
+                <div className={`${productos.length > 1 && totalFactura > 0 ? 'block' : 'hidden'} flex flex-col gap-3 sm:flex-row sm:gap-0 justify-between items-center mt-5`}>
 
                     <input
                         type="submit"
@@ -417,7 +417,7 @@ export const ModalFactura = ({ BASE_URL }) => {
                         className={`${editar ? 'hidden' : 'block'} bg-[#3EA8CE] text-lg rounded-md py-2 px-5 cursor-pointer hover:bg-[#238DB4] mr-5 order-last sm:order-first`}
                     />
 
-                    <p className={`${editar ? 'hidden' : 'block'} text-2xl`}>Subtotal: ${totalFactura}</p>
+                    <p className={`${editar ? 'hidden' : 'block'} text-2xl`}>Subtotal: S/. {totalFactura}</p>
                 </div>
             </form>
         </>

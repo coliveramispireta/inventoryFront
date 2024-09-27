@@ -193,13 +193,13 @@ export const ModalProveedor = ({ BASE_URL }) => {
                         className="block mb-3"
                         htmlFor="identificacion"
                     >
-                        Identificacion:
+                        RUC:
                     </label>
                     <input
                         id="identificacion"
                         type="text"
                         placeholder="No es obligatorio"
-                        className={`${identificacion.length !== 10 || isNaN(identificacion) ? 'border-red-400' : ''} border-2 px-2 py-1 outline-none rounded-sm w-full`}
+                        className={`${identificacion.length !== 11 || isNaN(identificacion) ? 'border-red-400' : ''} border-2 px-2 py-1 outline-none rounded-sm w-full`}
                         onChange={e => setIdentificacion(e.target.value)}
                         value={identificacion}
                     />
@@ -233,7 +233,7 @@ export const ModalProveedor = ({ BASE_URL }) => {
                         id="telefono"
                         type="text"
                         placeholder="No es obligatorio"
-                        className={`${telefono.length !== 10 || isNaN(telefono) ? 'border-red-400' : ''} border-2 px-2 py-1 outline-none rounded-sm w-full`}
+                        className={`${telefono.length !== 9 || isNaN(telefono) ? 'border-red-400' : ''} border-2 px-2 py-1 outline-none rounded-sm w-full`}
                         onChange={e => setTelefono(e.target.value)}
                         value={telefono}
                     />

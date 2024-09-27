@@ -162,16 +162,16 @@ export const ModalStock = ({ BASE_URL }) => {
 
     return (
         <>
-            <div className="py-10 px-5 border-b border-gray-300">
+            <div className="px-5 py-10 border-b border-gray-300">
                 <div className="text-center">
                     <button onClick={controlModal}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 bg-red-100 hover:bg-red-600 hover:text-white p-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 p-1 bg-red-100 rounded-full hover:bg-red-600 hover:text-white">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
 
-                <span className="block text-center text-2xl">Stok</span>
+                <span className="block text-2xl text-center">Stok</span>
             </div>
 
             <form
@@ -218,7 +218,7 @@ export const ModalStock = ({ BASE_URL }) => {
                         className="block mb-3"
                         htmlFor="precio-unitario"
                     >
-                        Precio Unitario:
+                        Precio Unitario (S/.):
                     </label>
                     <input
                         id="precio-unitario"
@@ -330,7 +330,7 @@ export const ModalStock = ({ BASE_URL }) => {
                         id="descripcion"
                         cols="30"
                         rows="5"
-                        className="border-2 px-2 py-1 rounded-sm outline-none w-full"
+                        className="w-full px-2 py-1 border-2 rounded-sm outline-none"
                         onChange={e => setDescripcion(e.target.value)}
                         value={descripcion}
                     ></textarea>
@@ -346,7 +346,7 @@ export const ModalStock = ({ BASE_URL }) => {
 
                     <select
                         id="estado"
-                        className="border-2 px-2 py-1 rounded-sm outline-none w-full bg-white"
+                        className="w-full px-2 py-1 bg-white border-2 rounded-sm outline-none"
                         onChange={e => setEstado(e.target.value)}
                         value={estado}
                     >
@@ -356,7 +356,7 @@ export const ModalStock = ({ BASE_URL }) => {
                 </div>
 
                 <div
-                    className="flex justify-between items-center"
+                    className="flex items-center justify-between"
                 >
                     <button
                         type="button"
@@ -369,7 +369,7 @@ export const ModalStock = ({ BASE_URL }) => {
                     {editar &&
                         <button
                             type="button"
-                            className="bg-red-400 text-white p-2 rounded-md hover:bg-red-600"
+                            className="p-2 text-white bg-red-400 rounded-md hover:bg-red-600"
                             onClick={eliminarStock}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">

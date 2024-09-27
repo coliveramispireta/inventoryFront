@@ -13,12 +13,12 @@ export const Factura = ({ BASE_URL, factura }) => {
 
     return (
         <tr className="even:bg-[#F8F8F8] border-b last-of-type:border-none">
-            <td className="text-start p-2 lg:px-7 lg:py-5">{numeroFactura}</td>
-            <td className="text-start p-2 lg:px-7 lg:py-5">${subtotal.$numberDecimal}</td>
-            <td className="text-start p-2 lg:px-7 lg:py-5">${descuento?.$numberDecimal}</td>
-            <td className="text-start p-2 lg:px-7 lg:py-5">${total.$numberDecimal}</td>
-            <td className="text-start p-2 lg:px-7 lg:py-5">{formatearFecha(createdAt)}</td>
-            <td className="text-start p-2 lg:px-7 lg:py-5">
+            <td className="p-2 text-start lg:px-7 lg:py-5">{numeroFactura}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5">S/. {subtotal.$numberDecimal}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5">S/. {descuento?.$numberDecimal}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5">S/. {total.$numberDecimal}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5">{formatearFecha(createdAt)}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5">
                 <button
                     className="ml-5 text-[#0C8AB7]"
                     onClick={acciones}

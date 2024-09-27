@@ -103,23 +103,23 @@ export const ModalDetalleFactura = ({ BASE_URL }) => {
 
     return (
         <>
-            <div className="py-10 px-5 border-b border-gray-300">
+            <div className="px-5 py-10 border-b border-gray-300">
                 <div className="text-center">
                     <button onClick={controlModal}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 bg-red-100 hover:bg-red-600 hover:text-white p-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 p-1 bg-red-100 rounded-full hover:bg-red-600 hover:text-white">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
 
-                <span className="block text-center text-2xl">Detalle Factura</span>
+                <span className="block text-2xl text-center">Detalle Factura</span>
             </div>
 
             {datos && Object.keys(datos).length > 0 &&
                 <div className="bg-[#f5f7f8] py-5 px-5 text-xs" id="factura_final">
                     <p className="text-center uppercase">{cabecera?.nombreLocal || '*Cabecera Eliminada*'}</p>
                     <p className="text-center uppercase">{cabecera?.sucursal}</p>
-                    <p className="text-center mb-5 uppercase">{cabecera?.direccion}</p>
+                    <p className="mb-5 text-center uppercase">{cabecera?.direccion}</p>
 
                     <p className="font-bold">
                         RUC: <span className="font-normal">{cabecera?.ruc}</span>
@@ -132,16 +132,16 @@ export const ModalDetalleFactura = ({ BASE_URL }) => {
                         FECHA EMISIÓN: <span className="font-normal">{formatearFechaFactura(createdAt)}</span>
                     </p>
 
-                    <hr className='border-black my-3' />
+                    <hr className='my-3 border-black' />
 
                     <p className="uppercase">NOMBRES: {cliente?.nombres} {cliente?.apellidos}</p>
                     <p className="uppercase">DIRECCIÓN: {cliente?.direccion}</p>
                     <p className="uppercase">RUC/C.I/PPT: {cliente?.identificacion}</p>
 
-                    <hr className='border-black my-3' />
+                    <hr className='my-3 border-black' />
 
                     <table
-                        className="mb-5 w-full"
+                        className="w-full mb-5"
                     >
                         <thead>
                             <tr>
@@ -166,20 +166,20 @@ export const ModalDetalleFactura = ({ BASE_URL }) => {
                         </tbody>
                     </table>
 
-                    <p>SUBTOTAL: ${subtotal.$numberDecimal}</p>
-                    <p>IVA 12%: ${iva.$numberDecimal}</p>
-                    <p>DESCUENTO: ${descuento.$numberDecimal}</p>
-                    <p>TOTAL: ${total.$numberDecimal}</p>
+                    <p>SUBTOTAL: S/. {subtotal.$numberDecimal}</p>
+                    <p>IGV 18%: S/. {iva.$numberDecimal}</p>
+                    <p>DESCUENTO: S/. {descuento.$numberDecimal}</p>
+                    <p>TOTAL: S/. {total.$numberDecimal}</p>
 
                     <p className="pt-5 text-center">MUCHAS GRACIAS POR SU COMPRA</p>
                 </div>
             }
 
-            <div className="bg-white border-t border-gray-300 m-auto flex justify-between items-center gap-3 py-4 px-5">
+            <div className="flex items-center justify-between gap-3 px-5 py-4 m-auto bg-white border-t border-gray-300">
                 <div className="flex gap-3">
                     <button
                         type="button"
-                        className="bg-green-400 px-3 py-2 text-white rounded-md hover:bg-green-600"
+                        className="px-3 py-2 text-white bg-green-400 rounded-md hover:bg-green-600"
                         onClick={imprimirFactura}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
@@ -198,7 +198,7 @@ export const ModalDetalleFactura = ({ BASE_URL }) => {
 
                 <button
                     type="button"
-                    className="bg-red-400 text-white p-2 rounded-md hover:bg-red-600"
+                    className="p-2 text-white bg-red-400 rounded-md hover:bg-red-600"
                     onClick={eliminarFactura}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
