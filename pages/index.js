@@ -30,8 +30,9 @@ export default function Home({ BASE_URL }) {
       router.push('/inicio')
 
     } catch (e) {
-      setAlerta(e.response.data.msg)
-    }
+      const mensajeError = e?.response?.data?.msg || 'Ocurrió un error inesperado';
+      setAlerta(mensajeError);
+  }
 
   }
 
@@ -48,7 +49,8 @@ export default function Home({ BASE_URL }) {
             onSubmit={handleLogin}
           >
 
-            <h2 className="text-[#142241] text-4xl mb-12">Bienvenido!</h2>
+            <h2 className="text-[#142241] text-4xl mb-12">Joyeria Karina's</h2>
+            <h3 className="text-[#142241] text-xl mb-12">Iniciar Sesión</h3>
 
             {alerta &&
               <p className='p-3 mb-5 text-center text-white bg-red-500 rounded-md'>{alerta}</p>

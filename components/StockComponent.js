@@ -23,7 +23,7 @@ export const StockComponent = ({ stock, BASE_URL }) => {
             <td className="p-2 text-start lg:px-7 lg:py-5">{codigo}</td>
             <td className="p-2 text-start lg:px-7 lg:py-5">{nombre}</td>
             <td className="p-2 text-start lg:px-7 lg:py-5">{cantidad}</td>
-            <td className="p-2 text-start lg:px-7 lg:py-5">S/. {precioUnitario.$numberDecimal}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5">S/. {parseFloat(precioUnitario.$numberDecimal).toFixed(2)}</td>
             <td className="p-2 text-start lg:px-7 lg:py-5">{estado ? 'Activo' : 'Inactivo'}</td>
             <td className="p-2 text-start lg:px-7 lg:py-5">
                 <button

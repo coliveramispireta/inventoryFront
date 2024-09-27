@@ -103,16 +103,17 @@ export default function Facturas({ BASE_URL }) {
         ? data
         : data.filter(facturas => facturas.numeroFactura.toLowerCase().includes(busqueda.toLowerCase()))
 
+        console.log("aqui hay data: ", data)
     return (
         <Layout>
             {error?.response?.data?.msg ?
 
-                <p className='text-center text-xl'>{noAcces}</p>
+                <p className='text-xl text-center'>{noAcces}</p>
                 :
                 <>
-                    <div className="md:flex md:justify-between md:items-center text-gray-800">
+                    <div className="text-gray-800 md:flex md:justify-between md:items-center">
                         <div
-                            className="flex items-center rounded-md bg-white shadow shadow-gray-200"
+                            className="flex items-center bg-white rounded-md shadow shadow-gray-200"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-5 text-gray-400">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -120,14 +121,14 @@ export default function Facturas({ BASE_URL }) {
 
                             <input
                                 type="text"
-                                className="pl-2 pr-6 py-2 outline-none text-gray-800 placeholder-gray-400 w-full md:w-96 rounded-md"
+                                className="w-full py-2 pl-2 pr-6 text-gray-800 placeholder-gray-400 rounded-md outline-none md:w-96"
                                 placeholder="Buscar: Ej. 1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed"
                                 onChange={e => setBusqueda(e.target.value)}
                             />
                         </div>
 
                         <button
-                            className="mt-3 md:mt-0 flex items-center gap-3 hover:bg-gray-300 px-3 py-2 rounded-xl"
+                            className="flex items-center gap-3 px-3 py-2 mt-3 md:mt-0 hover:bg-gray-300 rounded-xl"
                             onClick={changeModalFactura}
                         >
                             Agregar
@@ -141,19 +142,20 @@ export default function Facturas({ BASE_URL }) {
                         data && data.length ?
                             <div className='overflow-auto'>
                                 <table
-                                    className="w-full bg-white border mt-6"
+                                    className="w-full mt-6 bg-white border"
                                 >
                                     <thead>
                                         <tr className="border-b">
-                                            <th className="text-start p-2 lg:px-7 lg:py-5">Nº Factura</th>
-                                            <th className="text-start p-2 lg:px-7 lg:py-5">Subtotal</th>
-                                            <th className="text-start p-2 lg:px-7 lg:py-5">Descuento</th>
-                                            <th className="text-start p-2 lg:px-7 lg:py-5">Total</th>
-                                            <th className="text-start p-2 lg:px-7 lg:py-5">Fecha</th>
-                                            <th className="text-start p-2 lg:px-7 lg:py-5"></th>
+                                            <th className="p-2 text-start lg:px-7 lg:py-5">Nº Factura</th>
+                                            <th className="p-2 text-start lg:px-7 lg:py-5">Descripción</th>
+                                            <th className="p-2 text-start lg:px-7 lg:py-5">Subtotal</th>
+                                            <th className="p-2 text-start lg:px-7 lg:py-5">Descuento</th>
+                                            <th className="p-2 text-start lg:px-7 lg:py-5">Total</th>
+                                            <th className="p-2 text-start lg:px-7 lg:py-5">Fecha</th>
+                                            <th className="p-2 text-start lg:px-7 lg:py-5"></th>
                                         </tr>
                                     </thead>
-
+                                    
                                     <tbody>
                                         {
                                             facturasFiltradas.map(factura =>
@@ -168,7 +170,7 @@ export default function Facturas({ BASE_URL }) {
                                 </table>
                             </div>
                             :
-                            <p className='text-center text-xl mt-10 uppercase'>
+                            <p className='mt-10 text-xl text-center uppercase'>
                                 Sin Facturas
                             </p>
                     }

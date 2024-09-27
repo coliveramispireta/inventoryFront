@@ -136,7 +136,7 @@ export const ModalDetalleFactura = ({ BASE_URL }) => {
 
                     <p className="uppercase">NOMBRES: {cliente?.nombres} {cliente?.apellidos}</p>
                     <p className="uppercase">DIRECCIÓN: {cliente?.direccion}</p>
-                    <p className="uppercase">RUC/C.I/PPT: {cliente?.identificacion}</p>
+                    <p className="uppercase">DNI/RUC: {cliente?.identificacion}</p>
 
                     <hr className='my-3 border-black' />
 
@@ -159,17 +159,17 @@ export const ModalDetalleFactura = ({ BASE_URL }) => {
                                     <td>{c?.producto?.codigo || '*Producto Eliminado*'}</td>
                                     <td>{c?.descripcionProducto}</td>
                                     <td>{c?.cantidadProducto}</td>
-                                    <td>{c?.precioProducto.$numberDecimal}</td>
-                                    <td>{c?.subtotal.$numberDecimal}</td>
+                                    <td>{parseFloat(c?.precioProducto.$numberDecimal).toFixed(2)}</td>
+                                    <td>{parseFloat(c?.subtotal.$numberDecimal).toFixed(2)}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
 
-                    <p>SUBTOTAL: S/. {subtotal.$numberDecimal}</p>
-                    <p>IGV 18%: S/. {iva.$numberDecimal}</p>
-                    <p>DESCUENTO: S/. {descuento.$numberDecimal}</p>
-                    <p>TOTAL: S/. {total.$numberDecimal}</p>
+                    <p>SUBTOTAL: S/. {parseFloat(subtotal.$numberDecimal).toFixed(2)}</p>
+                    <p>IGV 18%: S/. {parseFloat(iva.$numberDecimal).toFixed(2)}</p>
+                    <p>DESCUENTO: S/. {parseFloat(descuento.$numberDecimal).toFixed(2)}</p>
+                    <p>TOTAL: S/. {parseFloat(total.$numberDecimal).toFixed(2)}</p>
 
                     <p className="pt-5 text-center">MUCHAS GRACIAS POR SU COMPRA</p>
                 </div>

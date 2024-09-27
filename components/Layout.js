@@ -17,7 +17,8 @@ export const Layout = ({ children }) => {
                 await axios.post(`${process.env.NEXT_PUBLIC_URL}/usuario/verificar-token`, { token: usuario?.token })
 
             } catch (error) {
-                setNoAcces(error.response.data.msg)
+                const errorMessage = error?.response?.data?.msg || 'Ocurrió un error inesperado';
+                setNoAcces(errorMessage);
             }
         }
 

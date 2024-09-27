@@ -1,10 +1,23 @@
 import useUsuario from '@/hooks/useUsuario';
 import { formatearFecha } from '@/helpers';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export const Factura = ({ BASE_URL, factura }) => {
 
     const { _id, numeroFactura, subtotal, descuento, total, createdAt } = factura
-    const { setIdFactura, changeModalDetalleFactura } = useUsuario()
+    const { setIdFactura, changeModalDetalleFactura, usuario } = useUsuario()
+    const [nameProducto, setNameProducto] = useState('')
+
+    useEffect(() => {
+        const contultData = async () => {
+
+            const { data } = await axios.get(`${BASE_URL}/factura/listar-factura/${_id}/${usuario.token}`)
+            console.log("res: ", data)
+            setNameProducto( data.cuerpo[0].descripcionProducto)
+        }
+        contultData()                        
+    }, []);
 
     const acciones = async () => {
         setIdFactura(_id)
@@ -14,9 +27,10 @@ export const Factura = ({ BASE_URL, factura }) => {
     return (
         <tr className="even:bg-[#F8F8F8] border-b last-of-type:border-none">
             <td className="p-2 text-start lg:px-7 lg:py-5">{numeroFactura}</td>
-            <td className="p-2 text-start lg:px-7 lg:py-5">S/. {subtotal.$numberDecimal}</td>
-            <td className="p-2 text-start lg:px-7 lg:py-5">S/. {descuento?.$numberDecimal}</td>
-            <td className="p-2 text-start lg:px-7 lg:py-5">S/. {total.$numberDecimal}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5"> {nameProducto}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5">S/. {parseFloat(subtotal.$numberDecimal).toFixed(2)}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5">S/. {parseFloat(descuento?.$numberDecimal).toFixed(2)}</td>
+            <td className="p-2 text-start lg:px-7 lg:py-5">S/. {parseFloat(total.$numberDecimal).toFixed(2)}</td>
             <td className="p-2 text-start lg:px-7 lg:py-5">{formatearFecha(createdAt)}</td>
             <td className="p-2 text-start lg:px-7 lg:py-5">
                 <button

@@ -85,7 +85,7 @@ export default function Negocio({ BASE_URL }) {
 
                         <div className={`bg-green-600 rounded-md h-fit`}>
                             <div className={`${styles.icon_money} p-5`}>
-                                <h2 className="mb-5 text-2xl font-bold">S/. {data?.totalVentasDia}</h2>
+                                <h2 className="mb-5 text-2xl font-bold">S/. {data?.totalVentasDia.toFixed(2)}</h2>
                                 <p>Ganancias del día</p>
                             </div>
 
@@ -94,7 +94,7 @@ export default function Negocio({ BASE_URL }) {
 
                         <div className={`bg-cyan-600 rounded-md h-fit`}>
                             <div className={`${styles.icon_money} p-5`}>
-                                <h2 className="mb-5 text-2xl font-bold">S./  {data?.totalVentasMes}</h2>
+                                <h2 className="mb-5 text-2xl font-bold">S./  {data?.totalVentasMes.toFixed(2)}</h2>
                                 <p>Ganancias del mes</p>
                             </div>
 
@@ -103,7 +103,7 @@ export default function Negocio({ BASE_URL }) {
 
                         <div className={`bg-orange-600 rounded-md h-fit`}>
                             <div className={`${styles.icon_money} p-5`}>
-                                <h2 className="mb-5 text-2xl font-bold">S/. {data?.totalVentasMesPasado}</h2>
+                                <h2 className="mb-5 text-2xl font-bold">S/. {data?.totalVentasMesPasado.toFixed(2)}</h2>
                                 <p>Ganancias mes pasado</p>
                             </div>
 

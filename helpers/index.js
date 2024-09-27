@@ -14,7 +14,7 @@ export const formatearFecha = (fecha) => {
     const fechaNueva = new Date(fecha);
 
     const opcionesFecha = { day: '2-digit', month: 'long', year: 'numeric' };
-    const opcionesHora = { hour: 'numeric', minute: '2-digit', hour12: true };
+    const opcionesHora = { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'America/Lima' };
 
     return `${fechaNueva.toLocaleDateString('es-ES', opcionesFecha).replace('de', '/').replace('de', '/').toUpperCase()} - ${fechaNueva.toLocaleTimeString('en-US', opcionesHora)}`;
 };
@@ -22,7 +22,7 @@ export const formatearFecha = (fecha) => {
 export const formatearFechaFactura = (fecha) => {
     const fechaNueva = new Date(fecha);
 
-    const opcionesFecha = { day: '2-digit', month: 'long', year: 'numeric' };
+    const opcionesFecha = { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'America/Lima' };
 
     return fechaNueva.toLocaleDateString('es-ES', opcionesFecha).replace('de', '/').replace('de', '/').toUpperCase()
 };
