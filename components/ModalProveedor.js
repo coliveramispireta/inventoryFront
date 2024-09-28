@@ -130,7 +130,7 @@ export const ModalProveedor = ({ BASE_URL }) => {
         } else {
             console.log("agregar") 
             if (nombre === '') { return }
-            if (identificacion.length !== 10 || isNaN(identificacion)) { return }
+            if (identificacion.length !== 11 || isNaN(identificacion)) { return }
             console.log("Editing:", nombre, identificacion); 
             
             try {
