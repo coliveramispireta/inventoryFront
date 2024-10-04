@@ -45,7 +45,8 @@ export const ModalMostrarStock = ({ BASE_URL, stockFiltrado, setProductoState, s
                                 <th className="p-2 text-start lg:px-7 lg:py-5">Cod.</th>
                                 <th className="p-2 text-start lg:px-7 lg:py-5">Nombre</th>
                                 <th className="p-2 text-start lg:px-7 lg:py-5">Cant.</th>
-                                <th className="p-2 text-start lg:px-7 lg:py-5">Pre. Uni.</th>
+                                <th className="p-2 text-start lg:px-7 lg:py-5">Costo (und)</th>
+                                <th className="p-2 text-start lg:px-7 lg:py-5">Venta (und)</th>
                                 <th className="p-2 text-start lg:px-7 lg:py-5"></th>
                             </tr>
                         </thead>

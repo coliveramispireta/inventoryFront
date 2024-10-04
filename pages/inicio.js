@@ -23,6 +23,7 @@ export default function Negocio({ BASE_URL }) {
     const { data, error, isLoading } = useSWR(`${BASE_URL}/factura/ventas/${usuario.token}`, fetcher, { refreshInterval: 100 })
 
     useEffect(() => {
+        console.log(" Home data: ", data)
         if (usuario?._id) {
             setName(usuario?.name)
             setUser(usuario?.user)
@@ -86,7 +87,7 @@ export default function Negocio({ BASE_URL }) {
                         <div className={`bg-green-600 rounded-md h-fit`}>
                             <div className={`${styles.icon_money} p-5`}>
                                 <h2 className="mb-5 text-2xl font-bold">S/. {data?.totalVentasDia.toFixed(2)}</h2>
-                                <p>Ganancias del día</p>
+                                <p>Ingresos del día</p>
                             </div>
 
                             <span className="block w-full h-6 bg-green-700 rounded-b-md"></span>
@@ -95,7 +96,7 @@ export default function Negocio({ BASE_URL }) {
                         <div className={`bg-cyan-600 rounded-md h-fit`}>
                             <div className={`${styles.icon_money} p-5`}>
                                 <h2 className="mb-5 text-2xl font-bold">S./  {data?.totalVentasMes.toFixed(2)}</h2>
-                                <p>Ganancias del mes</p>
+                                <p>Ingresos del mes</p>
                             </div>
 
                             <span className="block w-full h-6 bg-cyan-700 rounded-b-md"></span>
@@ -104,6 +105,66 @@ export default function Negocio({ BASE_URL }) {
                         <div className={`bg-orange-600 rounded-md h-fit`}>
                             <div className={`${styles.icon_money} p-5`}>
                                 <h2 className="mb-5 text-2xl font-bold">S/. {data?.totalVentasMesPasado.toFixed(2)}</h2>
+                                <p>Ingresos mes pasado</p>
+                            </div>
+
+                            <span className="block w-full h-6 bg-orange-700 rounded-b-md"></span>
+                        </div>
+                    </div>
+                    
+                    <div className="grid w-full gap-5 mt-4 text-white md:grid-cols-3">
+
+                        <div className={`bg-green-600 rounded-md h-fit`}>
+                            <div className={`${styles.icon_money} p-5`}>
+                                <h2 className="mb-5 text-2xl font-bold">S/. {data?.totalGastosDia.toFixed(2)}</h2>
+                                <p>Gastos del día</p>
+                            </div>
+
+                            <span className="block w-full h-6 bg-green-700 rounded-b-md"></span>
+                        </div>
+
+                        <div className={`bg-cyan-600 rounded-md h-fit`}>
+                            <div className={`${styles.icon_money} p-5`}>
+                                <h2 className="mb-5 text-2xl font-bold">S./  {data?.totalGastosMes.toFixed(2)}</h2>
+                                <p>Gastos del mes</p>
+                            </div>
+
+                            <span className="block w-full h-6 bg-cyan-700 rounded-b-md"></span>
+                        </div>
+
+                        <div className={`bg-orange-600 rounded-md h-fit`}>
+                            <div className={`${styles.icon_money} p-5`}>
+                                <h2 className="mb-5 text-2xl font-bold">S/. {data?.totalGastosMesPasado.toFixed(2)}</h2>
+                                <p>Gastos mes pasado</p>
+                            </div>
+
+                            <span className="block w-full h-6 bg-orange-700 rounded-b-md"></span>
+                        </div>
+                    </div>
+                    
+                    <div className="grid w-full gap-5 mt-4 text-white md:grid-cols-3">
+
+                        <div className={`bg-green-600 rounded-md h-fit`}>
+                            <div className={`${styles.icon_money} p-5`}>
+                                <h2 className="mb-5 text-2xl font-bold">S/. {data?.totalGananciasDia.toFixed(2)}</h2>
+                                <p>Ganancias del día</p>
+                            </div>
+
+                            <span className="block w-full h-6 bg-green-700 rounded-b-md"></span>
+                        </div>
+
+                        <div className={`bg-cyan-600 rounded-md h-fit`}>
+                            <div className={`${styles.icon_money} p-5`}>
+                                <h2 className="mb-5 text-2xl font-bold">S./  {data?.totalGananciasMes.toFixed(2)}</h2>
+                                <p>Ganancias del mes</p>
+                            </div>
+
+                            <span className="block w-full h-6 bg-cyan-700 rounded-b-md"></span>
+                        </div>
+
+                        <div className={`bg-orange-600 rounded-md h-fit`}>
+                            <div className={`${styles.icon_money} p-5`}>
+                                <h2 className="mb-5 text-2xl font-bold">S/. {data?.totalGananciasMesPasado.toFixed(2)}</h2>
                                 <p>Ganancias mes pasado</p>
                             </div>
 

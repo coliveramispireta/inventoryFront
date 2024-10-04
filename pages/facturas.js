@@ -86,6 +86,7 @@ Modal.setAppElement('#__next');
 export default function Facturas({ BASE_URL }) {
 
     const [busqueda, setBusqueda] = useState('')
+    const [filtrarInsumos, setFiltrarInsumos] = useState(null);// Nuevo estado para el filtro de Insumos
 
     const {
         changeModalFactura,
@@ -99,9 +100,17 @@ export default function Facturas({ BASE_URL }) {
     const fetcher = () => axios(`${BASE_URL}/factura/listar-facturas/${usuario.token}`).then(datos => datos.data)
     const { data, error, isLoading } = useSWR(`${BASE_URL}/factura/listar-facturas/${usuario.token}`, fetcher, { refreshInterval: 100 })
 
-    const facturasFiltradas = busqueda === ''
-        ? data
-        : data.filter(facturas => facturas.numeroFactura.toLowerCase().includes(busqueda.toLowerCase()))
+       // Filtrar por búsqueda
+    const facturasFiltradas = data 
+    ? data.filter(facturas => 
+        facturas.numeroFactura.toLowerCase().includes(busqueda.toLowerCase() || '')
+      )
+    : [];
+
+        // Aplicar el filtro de Insumos o Productos
+        const facturasFinal = filtrarInsumos !== null
+        ? facturasFiltradas.filter(stock => stock.tipoOrden  === filtrarInsumos)
+        : facturasFiltradas;
 
         console.log("aqui hay data: ", data)
     return (
@@ -112,6 +121,7 @@ export default function Facturas({ BASE_URL }) {
                 :
                 <>
                     <div className="text-gray-800 md:flex md:justify-between md:items-center">
+     {/* Input de búsqueda */}
                         <div
                             className="flex items-center bg-white rounded-md shadow shadow-gray-200"
                         >
@@ -126,7 +136,7 @@ export default function Facturas({ BASE_URL }) {
                                 onChange={e => setBusqueda(e.target.value)}
                             />
                         </div>
-
+ {/* Botón Agregar */}
                         <button
                             className="flex items-center gap-3 px-3 py-2 mt-3 md:mt-0 hover:bg-gray-300 rounded-xl"
                             onClick={changeModalFactura}
@@ -137,6 +147,29 @@ export default function Facturas({ BASE_URL }) {
                             </svg>
                         </button>
                     </div>
+
+                     {/* Botones de Filtro */}
+ <div className='flex gap-4 mt-3'>
+                        <button
+                            className={`flex items-center gap-3 px-3 py-2 hover:bg-gray-300 rounded-xl ${filtrarInsumos === null ? 'bg-gray-200' : ''}`}
+                            onClick={() => setFiltrarInsumos(null)}
+                        >
+                            Todo
+                        </button>
+                        <button
+                            className={`flex items-center gap-3 px-3 py-2 hover:bg-gray-300 rounded-xl ${filtrarInsumos === true ? 'bg-gray-200' : ''}`}
+                            onClick={() => setFiltrarInsumos(false)}
+                        >
+                            Orden Producto
+                        </button>
+                        <button
+                            className={`flex items-center gap-3 px-3 py-2 hover:bg-gray-300 rounded-xl ${filtrarInsumos === false ? 'bg-gray-200' : ''}`}
+                            onClick={() => setFiltrarInsumos(true)}
+                        >
+                            Factura Cliente
+                        </button>
+                    </div>
+                      {/* Tabla  */}
 
                     {
                         data && data.length ?
@@ -158,7 +191,7 @@ export default function Facturas({ BASE_URL }) {
                                     
                                     <tbody>
                                         {
-                                            facturasFiltradas.map(factura =>
+                                            facturasFinal.map(factura =>
                                                 <Factura
                                                     key={factura._id}
                                                     factura={factura}

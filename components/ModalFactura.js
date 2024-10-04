@@ -19,6 +19,8 @@ export const ModalFactura = ({ BASE_URL }) => {
         productos,
         setCabeceraFactura,
         cabeceraFactura,
+        setTipoOrden,
+        tipoOrden,
         setNombres,
         nombres,
         setApellidos,
@@ -60,13 +62,15 @@ export const ModalFactura = ({ BASE_URL }) => {
         cabecera: cabeceraState,
         cliente: clienteState,
         cuerpo: cuerpoState,
-        subtotal: subtotalState
+        subtotal: subtotalState,
+        tipoOrden: tipoOrdenState,
     } = facturaState
 
     useEffect(() => {
         if (facturaState?._id) {
             setBotonMas(true)
             setCabeceraFactura(cabeceraState?._id);
+            setTipoOrden(tipoOrdenState?._id);
             setNombres(clienteState?.nombres)
             setApellidos(clienteState?.apellidos)
             setIdentificacion(clienteState?.identificacion)
@@ -101,6 +105,7 @@ export const ModalFactura = ({ BASE_URL }) => {
 
         setBotonMas(true)
         setCabeceraFactura('');
+        setTipoOrden('');
         setNombres('')
         setApellidos('')
         setIdentificacion('')
@@ -121,6 +126,7 @@ export const ModalFactura = ({ BASE_URL }) => {
             setBotonMas(true)
 
             setCabeceraFactura('');
+            setTipoOrden('');
             setNombres('')
             setApellidos('')
             setIdentificacion('')
@@ -164,6 +170,7 @@ export const ModalFactura = ({ BASE_URL }) => {
         setFormulariosFactura([])
 
         setCabeceraFactura('')
+        setTipoOrden('');
 
         setNombres('')
         setApellidos('')
@@ -221,6 +228,7 @@ export const ModalFactura = ({ BASE_URL }) => {
         e.preventDefault()
 
         if (cabeceraFactura === '') { return }
+        if (tipoOrden  === '') { return }
         if (identificacion.length !== 10 || isNaN(identificacion)) { return }
         if ([nombres, apellidos, identificacion].includes('')) { return }
 
@@ -249,8 +257,10 @@ export const ModalFactura = ({ BASE_URL }) => {
                 await axios.put(`${BASE_URL}/factura/actualizar-factura/${_id}/${usuario.token}`, {
                     cabecera: cabeceraFactura,
                     cliente: data.cliente,
-                    cuerpo
+                    cuerpo,
+                    tipoOrden 
                 })
+
 
                 setIdFactura(_id)
                 setEditar(false)
@@ -293,8 +303,16 @@ export const ModalFactura = ({ BASE_URL }) => {
                         const { data: facturaFinal } = await axios.post(`${BASE_URL}/factura/ingresar-factura/${usuario.token}`, {
                             cabecera: cabeceraFactura,
                             cliente: data.cliente,
-                            cuerpo
+                            cuerpo,
+                            tipoOrden 
                         })
+console.log("tipoOrden: ", tipoOrden);
+console.log("new factura: ", {
+    cabecera: cabeceraFactura,
+    cliente: data.cliente,
+    cuerpo,
+    tipoOrden 
+})
 
                         setIdFactura(facturaFinal._id)
                         changeModalFactura()
@@ -328,14 +346,15 @@ export const ModalFactura = ({ BASE_URL }) => {
                 className="p-7 py-10 px-12 bg-[#F1F1F1]"
             >
 
-                {/* Eleguir Cabecera Factura */}
+                {/* Elegir Cabecera Factura */}
                 <h2 className="text-2xl">Cabecera:</h2>
-                <div className="flex flex-col mb-9 md:mb-3 md:flex-row md:gap-4 md:items-baseline">
+                <div className="flex gap-32">
+                <div className="mb-9 md:mb-3 md:flex-row md:gap-4 md:items-baseline">
                     <label
                         htmlFor="cabecera"
                         className="block mb-3"
                     >
-                        Eleguir cabecera:
+                        Elegir cabecera:
                     </label>
 
                     <select
@@ -363,7 +382,25 @@ export const ModalFactura = ({ BASE_URL }) => {
                         }
                     </select >
                 </div>
-
+                <div className="mb-9 md:mb-3 md:flex-row md:gap-4 md:items-baseline">
+                    <label
+                        className="block mb-3"
+                        htmlFor="insumo"
+                    >
+                        Tipo de Salida:
+                    </label>
+                    <select
+                        id="tipoOrden"
+                        className={`${tipoOrden === '' ? 'border-red-400' : ''} border-2 bg-white px-3 py-2 rounded-sm`}
+                        onChange={(e) => setTipoOrden(e.target.value)}
+                        value={tipoOrden}
+                    >
+                        <option value="" defaultValue>{'-- Seleccione --'}</option>
+                        <option value="false" >{'ORDEN PRODUCTO'}</option>
+                        <option value="true" >{'FACTURA CLIENTE'}</option>
+                    </select >
+                </div>
+                </div>
                 <hr className='border-gray-300' />
 
                 {/* Ingresar los datos del cliente */}

@@ -8,6 +8,8 @@ export const ModalStock = ({ BASE_URL }) => {
 
     const [nombre, setNombre] = useState('')
     const [cantidad, setCantidad] = useState(0)
+    const [insumo, setInsumo] = useState('')
+    const [precioCosto, setPrecioCosto] = useState(0)
     const [precioUnitario, setPrecioUnitario] = useState(0)
     const [codigo, setCodigo] = useState('')
     const [proveedor, setProveedor] = useState('')
@@ -34,7 +36,9 @@ export const ModalStock = ({ BASE_URL }) => {
         _id,
         nombre: nombreState,
         cantidad: cantidadState,
+        insumo: insumoState,
         precioUnitario: precioUnitarioState,
+        precioCosto: precioCostoState,
         codigo: codigoState,
         proveedor: proveedorState,
         categoria: categoriaState,
@@ -45,8 +49,10 @@ export const ModalStock = ({ BASE_URL }) => {
     useEffect(() => {
         if (stockState?._id) {
             setNombre(nombreState);
-            setCantidad(cantidadState)
+            setCantidad(cantidadState);
+            setInsumo(insumoState);
             setPrecioUnitario(precioUnitarioState.$numberDecimal)
+            setPrecioCosto(precioCostoState.$numberDecimal)
             setCodigo(codigoState)
             setProveedor(proveedorState?._id || '')
             setCategoria(categoriaState?._id || '')
@@ -58,6 +64,8 @@ export const ModalStock = ({ BASE_URL }) => {
         setNombre('');
         setCantidad(0)
         setPrecioUnitario(0)
+        setPrecioCosto(0)
+        setInsumo('')
         setCodigo('')
         setProveedor('')
         setCategoria('')
@@ -71,11 +79,13 @@ export const ModalStock = ({ BASE_URL }) => {
             setNombre('');
             setCantidad(0)
             setPrecioUnitario(0)
+            setPrecioCosto(0)
             setCodigo('')
             setProveedor('')
             setCategoria('')
             setDescripcion('');
             setEstado('true')
+            setInsumo('')
         }
     }, [])
 
@@ -114,6 +124,7 @@ export const ModalStock = ({ BASE_URL }) => {
         if (editar) {
             if (nombre === '') { return }
             if (cantidad < 0 || isNaN(cantidad) || cantidad === '') { return }
+            if (precioCosto < 0 || isNaN(precioCosto) || precioCosto === '') { return }
             if (precioUnitario < 0 || isNaN(precioUnitario) || precioUnitario === '') { return }
             if (codigo === '') { return }
 
@@ -122,10 +133,12 @@ export const ModalStock = ({ BASE_URL }) => {
                     nombre,
                     cantidad,
                     precioUnitario,
+                    precioCosto,
                     codigo,
                     proveedor: proveedor ? proveedor : null,
                     categoria: categoria ? categoria : null,
                     descripcion,
+                    insumo,
                     estado
                 })
 
@@ -137,6 +150,7 @@ export const ModalStock = ({ BASE_URL }) => {
         } else {
             if (nombre === '') { return }
             if (cantidad < 0 || isNaN(cantidad) || cantidad === '') { return }
+            if (precioCosto < 0 || isNaN(precioCosto) || precioCosto === '') { return }
             if (precioUnitario < 0 || isNaN(precioUnitario) || precioUnitario === '') { return }
             if (codigo === '') { return }
 
@@ -144,11 +158,13 @@ export const ModalStock = ({ BASE_URL }) => {
                 await axios.post(`${BASE_URL}/stock/ingresar/${usuario.token}`, {
                     nombre,
                     cantidad,
+                    precioCosto,
                     precioUnitario,
                     codigo,
                     proveedor,
                     categoria,
                     descripcion,
+                    insumo,
                     estado
                 })
                 Swal.fire('Agregado correctamente')
@@ -216,9 +232,28 @@ export const ModalStock = ({ BASE_URL }) => {
                 <div className="mb-3">
                     <label
                         className="block mb-3"
+                        htmlFor="precio-costo"
+                    >
+                        Precio Costo Unitario (S/.):
+                    </label>
+                    <input
+                        id="precio-costo"
+                        type="number"
+                        min={0}
+                        step={1}
+                        placeholder="*"
+                        className={`${precioCosto < 0 || isNaN(precioCosto) || precioCosto === '' ? 'border-red-400 placeholder:text-red-400' : ''} border-2 px-2 py-1 outline-none rounded-sm w-full`}
+                        onChange={e => setPrecioCosto(e.target.value)}
+                        value={precioCosto}
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <label
+                        className="block mb-3"
                         htmlFor="precio-unitario"
                     >
-                        Precio Unitario (S/.):
+                        Precio Venta Unitario (S/.):
                     </label>
                     <input
                         id="precio-unitario"
@@ -283,13 +318,32 @@ export const ModalStock = ({ BASE_URL }) => {
                         }
                     </select >
                 </div>
+ 
+                <div className="mb-3">
+                    <label
+                        className="block mb-3"
+                        htmlFor="insumo"
+                    >
+                        Categoría:
+                    </label>
+                    <select
+                        id="insumo"
+                        className={`${insumo === '' ? 'border-red-400' : ''} border-2 bg-white px-2 py-1 rounded-sm outline-none w-full`}
+                        onChange={(e) => setInsumo(e.target.value)}
+                        value={insumo}
+                    >
+                        <option value="" defaultValue>{'-- Seleccione --'}</option>
+                        <option value="true" >{'INSUMO'}</option>
+                        <option value="false" >{'PRODUCTO'}</option>
+                    </select >
+                </div>
 
                 <div className="mb-3">
                     <label
                         className="block mb-3"
                         htmlFor="categoria"
                     >
-                        Categoría:
+                       Sub-Categoría:
                     </label>
 
                     <select

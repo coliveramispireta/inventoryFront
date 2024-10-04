@@ -39,6 +39,8 @@ export const UsuarioProvider = ({ children }) => {
   // Datos Cabecera Factura
   const [cabeceraFactura, setCabeceraFactura] = useState('');
 
+  const [tipoOrden, setTipoOrden] = useState('')
+
   // Datos Cliente Factura
   const [nombres, setNombres] = useState('')
   const [apellidos, setApellidos] = useState('')
@@ -174,6 +176,8 @@ export const UsuarioProvider = ({ children }) => {
         modalFactura,
         setCabeceraFactura,
         cabeceraFactura,
+        tipoOrden,
+        setTipoOrden,
         setNombres,
         nombres,
         setApellidos,

@@ -108,7 +108,7 @@ export const ModalProveedor = ({ BASE_URL }) => {
         console.log('nombre', nombre);  
         if (editar) {
             if (nombre === '') { return }
-            if (identificacion.length !== 10 || isNaN(identificacion)) { return }
+            if (identificacion.length !== 11 || isNaN(identificacion)) { return }
 
             try {
                 await axios.put(`${BASE_URL}/proveedor/actualizar/${_id}/${usuario.token}`, {
