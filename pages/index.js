@@ -48,8 +48,10 @@ export default function Home({ BASE_URL }) {
           <form
             onSubmit={handleLogin}
           >
+          <div className="items-center">
+              <img src="img/logo.JPG" alt="Descripción de la imagen" width="500" height="500" className="items-center h-auto pb-10 -mt-6 w-72" />
+          </div>
 
-            <h2 className="text-[#142241] text-4xl mb-12">Joyeria Karina's</h2>
             <h3 className="text-[#142241] text-xl mb-12">Iniciar Sesión</h3>
 
             {alerta &&

@@ -3,6 +3,9 @@ import { useRouter } from "next/router"
 import styles from '../styles/navBar.module.css'
 import useUsuario from "@/hooks/useUsuario"
 
+import { Allison } from "next/font/google";
+const inter = Allison({ subsets: ["latin"], weight: "400" });
+
 export const Nav = () => {
 
     const { changeNavbar, navbar, changeOpcFactura, opcFactura, toggle, cerrarSesion } = useUsuario();
@@ -13,9 +16,9 @@ export const Nav = () => {
             className={`${toggle ? 'right-[calc(100%-145px)]' : ''} fixed right-[100%] xl:relative xl:right-0 text-white bg-[#32898b] h-screen xl:flex xl:flex-col main-navbar transition-width duration-300 overflow-hidden overflow-y-auto ${styles.scroll} ${navbar ? 'w-[145px]' : 'w-72'} z-20`}
         >
             <p
-                className={`hidden xl:flex items-center py-4 px-7 bg-[#4c4c4d] font-bold border-b border-black ${navbar ? 'justify-center' : 'justify-between'}`}
+                className={`text-center hidden xl:flex items-center py-4 px-7 bg-[#4c4c4d] font-bold border-b border-black ${navbar ? 'justify-center' : 'justify-between'}`}
             >
-                {!navbar && <span className="block text-[#ffffff]">Joyeria Karina's</span>}
+                {!navbar && <span  className={`block text-[#ffffff]  text-3xl text text-center ${inter.className}`} >Haduc'x </span>}
 
                 <button
                     className="hover:bg-[#3EA8CE] p-2 rounded-full transition-colors"
